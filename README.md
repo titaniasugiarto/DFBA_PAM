@@ -4,14 +4,50 @@
 
 ## Getting started
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+This template is meant as a starting point for creating new repositories for projects in the Industrial Systems Biology group at the institute of Applied Microbiology. This README file will highlight some of the core principles for sharing and creating software/data according to the [FAIR software principles](https://www.nature.com/articles/s41597-022-01710-x).
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+## Step-by-step plan for using version control with Git
+The following step-by-step guidelines will help you create and maintain organized projects on GitLab
 
-## Add your files
+1. [Fork this project](https://docs.gitlab.com/ee/user/project/repository/forking_workflow.html). Ensure you create a fork from the main branch and make it private
+2. [Clone the project](https://docs.gitlab.com/ee/user/project/repository/index.html#clone-a-repository) to your computer
+3. [Maintain the project](https://docs.gitlab.com/ee/user/get_started/get_started_managing_code.html) by doing one commit per change, and pushing regularly to Git. [This webpage](https://carpentries-incubator.github.io/fair-research-software/04-version-control.html) from the software carpentries gives a good overview of how to use version control.
+4. If you are working of software development, the following branching structure is recommended:
+    - `main`: this is the latest *stable* version of the software
+    - `develop`: this is were development happens, only merged into main if it is stable
+    - `feature`: in a feature branch, you can develop new features for your software. If the feature is ready, it can be merged into main and the branch can be deleted.
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+More information about collaborating on software projects can be found [here](https://coderefinery.github.io/git-collaborative/)
+
+## Step-by-step plan for creating repositories using the FAIR principles
+The following guidelines will help you build your project such that it is easily Findable, Accessible, Interoperable and Reproducible
+
+1. Before you start:
+    - Create a venv/conda venv for this specific project
+    - Determine which version of Python/pandas/numpy/other basics you will be using and make sure you version pin (e.g. `pandas==0.25.3`) them in your requirements file
+    - Replace this README with a landing page describing your project and how people should collaborate.
+
+2. During the development:
+    - Regularly update your requirements file. Preferably after each new installation/deinstallation. Keep in mind that package co-dependencies should be deleted manually to keep a clean list or requirements. with conda, you can use `conda list --from-history` to get all the packages you have installed manually (thus not the co-dependencies). More information and an example can be found [here](https://coderefinery.github.io/reproducible-research/dependencies/).
+    - See the [Git usage guide](## Step-by-step plan for using version control with Git) for how to maintain your repository.
+    - Create a test suite in the `tests` directory. Some guidelines can be found [here](https://carpentries-incubator.github.io/fair-research-software/08-code-correctness.html) and [here](https://suresoft.dev/knowledge-hub/software-testing/). A minimal requirement is writing unit tests using the [Arrange, Act, Assert framework](https://automationpanda.com/2020/07/07/arrange-act-assert-a-pattern-for-writing-good-tests/)
+    - Best practice is to introduce a continuous integration (CI) framework. A template can be found in the `.github` and `.gitlab` folder for [GitHub](https://carpentries-incubator.github.io/fair-research-software/ci-for-testing.html) and [GitLab](https://suresoft.dev/knowledge-hub/continuous-integration/gitlab-ci/), respectively.
+    - Keep writing documentation! Even though it is tempting to only do this at the end, it is better to start writing your general documentation describing the principles underlying the software early on.
+    - Add all confidential files or files/directories such as __pycache__ to the `.gitignore` file. These files will then be ignored by git, and not uploaded to the git server.
+
+3. Before publication:
+    - **IMPORTANT**: determine the software licence. This tells the user what it is allowed to do with it. Please note that the licence can be affected by potential future patents, or by the packages you use in your software/repository. The EU provides a great tool for finding out which licence is good for you: a [licence compatibility checker](https://interoperable-europe.ec.europa.eu/collection/eupl/solution/licensing-assistant/compatibility-checker) and an [overview of the commonly used licences](https://interoperable-europe.ec.europa.eu/collection/eupl/solution/licensing-assistant/find-and-compare-software-licenses). More information can be found on [this webpage](https://coderefinery.github.io/social-coding/software-licensing/)
+    - Finish your documentation. Make sure you update your [software level documentation](https://carpentries-incubator.github.io/fair-research-software/09-code-documentation.html#software-level-documentation) and your [project level documentation](https://carpentries-incubator.github.io/fair-research-software/09-code-documentation.html#project-level-documentation)
+    - Deploy your documentation using [MKDocs](https://carpentries-incubator.github.io/fair-research-software/09-code-documentation.html#documentation-tools), [ReadTheDocs](https://about.readthedocs.com/?ref=readthedocs.org) (example is in the docs directory), or whatever other tool you'd like to use.
+    - Make your repository citable by adding a CITATION file. [This tool](https://citation-file-format.github.io/cff-initializer-javascript/#/) will generate the file for you. More information can be found [here](https://coderefinery.github.io/social-coding/software-citation/)
+
+4. Publication:
+    - Create a clean copy of the project on the iAMB GitHub page. 
+    - If you do not need the history of your project anymore, delete it on GitLab
+    - If you are not working on a confidential project and you do not mind people seeing your git history, you can also migrate the GitLab repo to GitHub without loosing anything.
+
+5. After publication: Keep on the maintenance!
+
 
 ```
 cd existing_repo
