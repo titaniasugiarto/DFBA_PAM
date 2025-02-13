@@ -25,7 +25,7 @@ Please check out what goes where:
 **Files**
 - `.gitignore`: every file listed in the `.gitignore` file will be ignored by git. This is very confeniant for automatically generated files and confidential information
 - `requirements.txt`: A list of all the packages (including version!) which are required to redo the analyses.
-- `.readthedocs.yml`: An example for deploying documentation using readthedocs
+- `.readthedocs.yml`: An example for deploying documentation using readthedocs. Please delete if not necessary.
 
 
 ## Step-by-step plan for using version control with Git
@@ -50,25 +50,27 @@ The following guidelines will help you build your project such that it is easily
     - Replace this [README](https://github.com/hackergrrl/art-of-readme#bonus-the-readme-checklist) with a landing page describing your project and how people should collaborate.
 
 2. **During the development**:
-    - Regularly update your requirements file. Preferably after each new installation/deinstallation. Keep in mind that package co-dependencies should be deleted manually to keep a clean list or requirements. with conda, you can use `conda list --from-history` to get all the packages you have installed manually (thus not the co-dependencies). More information and an example can be found [here](https://coderefinery.github.io/reproducible-research/dependencies/).
+    - Regularly update your requirements file. Preferably after each new installation/deinstallation. Keep in mind that package co-dependencies should be deleted manually to keep a clean list or requirements. with conda, you can use `conda list --from-history` to get all the packages you have installed manually (thus not the co-dependencies). More information and an example can be found in the [code refinery](https://coderefinery.github.io/reproducible-research/dependencies/).
     - See the [Git usage guide](## Step-by-step plan for using version control with Git) for how to maintain your repository.
-    - Create a test suite in the `tests` directory. Some guidelines can be found [here](https://carpentries-incubator.github.io/fair-research-software/08-code-correctness.html) and [here](https://suresoft.dev/knowledge-hub/software-testing/). A minimal requirement is writing unit tests using the [Arrange, Act, Assert framework](https://automationpanda.com/2020/07/07/arrange-act-assert-a-pattern-for-writing-good-tests/)
-    - Best practice is to introduce a continuous integration (CI) framework. A template can be found in the `.github` and `.gitlab` folder for [GitHub](https://carpentries-incubator.github.io/fair-research-software/ci-for-testing.html) and [GitLab](https://suresoft.dev/knowledge-hub/continuous-integration/gitlab-ci/), respectively.
+    - Create a test suite in the `tests` directory. Some guidelines can be found from the [carpentries-incubator](https://carpentries-incubator.github.io/fair-research-software/08-code-correctness.html) and [SureSoft](https://suresoft.dev/knowledge-hub/software-testing/). A minimal requirement is writing unit tests using the [Arrange, Act, Assert framework](https://automationpanda.com/2020/07/07/arrange-act-assert-a-pattern-for-writing-good-tests/)
+    - Best practice is to introduce a continuous integration (CI) framework. A template can be found in the `.github` folder for [GitHub](https://carpentries-incubator.github.io/fair-research-software/ci-for-testing.html). GitLab works with a `.gitlab-ci.yml` file in the root of the repository. In the [GitLab documentation](https://docs.gitlab.com/ee/tutorials/setup_steps/) and the [SureSoft](https://suresoft.dev/knowledge-hub/continuous-integration/gitlab-ci/) you can find more information about how to set this up. If you want to do something elaborate, you can check the [yaml 'dictionary' from GitLab](https://docs.gitlab.com/ee/ci/yaml/).
     - [Keep writing documentation](https://carpentries-incubator.github.io/fair-research-software/09-code-documentation)! Even though it is tempting to only do this at the end, it is better to start writing your general documentation describing the principles underlying the software early on. Some good resources can be found at the [GoodDocsProject](https://www.thegooddocsproject.dev/) and the [Diataxis framework](https://diataxis.fr/)
     - Add all confidential files or files/directories such as __pycache__ to the `.gitignore` file. These files will then be ignored by git, and not uploaded to the git server.
 
 3. **Before publication**:
-    - **IMPORTANT**: determine the software licence. This tells the user what it is allowed to do with it. Please note that the licence can be affected by potential future patents, or by the packages you use in your software/repository. The EU provides a great tool for finding out which licence is good for you: a [licence compatibility checker](https://interoperable-europe.ec.europa.eu/collection/eupl/solution/licensing-assistant/compatibility-checker) and an [overview of the commonly used licences](https://interoperable-europe.ec.europa.eu/collection/eupl/solution/licensing-assistant/find-and-compare-software-licenses). More information can be found on [this webpage](https://coderefinery.github.io/social-coding/software-licensing/)
+    - **IMPORTANT**: determine the software licence. This tells the user what it is allowed to do with it. Please note that the licence can be affected by potential future patents, or by the packages you use in your software/repository. The EU provides a great tool for finding out which licence is good for you: a [licence compatibility checker](https://interoperable-europe.ec.europa.eu/collection/eupl/solution/licensing-assistant/compatibility-checker) and an [overview of the commonly used licences](https://interoperable-europe.ec.europa.eu/collection/eupl/solution/licensing-assistant/find-and-compare-software-licenses). More information can be found in the [code refinery](https://coderefinery.github.io/social-coding/software-licensing/)
     - Finish your documentation. Make sure you update your [software level documentation](https://carpentries-incubator.github.io/fair-research-software/09-code-documentation.html#software-level-documentation) and your [project level documentation](https://carpentries-incubator.github.io/fair-research-software/09-code-documentation.html#project-level-documentation)
     - Deploy your documentation using [MKDocs](https://carpentries-incubator.github.io/fair-research-software/09-code-documentation.html#documentation-tools), [ReadTheDocs](https://about.readthedocs.com/?ref=readthedocs.org) (example is in the docs directory), or whatever other tool you'd like to use.
-    - Make your repository citable by adding a CITATION file. [This tool](https://citation-file-format.github.io/cff-initializer-javascript/#/) will generate the file for you. More information can be found [here](https://coderefinery.github.io/social-coding/software-citation/)
+    - Make your repository citable by adding a CITATION file. [This tool](https://citation-file-format.github.io/cff-initializer-javascript/#/) will generate the file for you. More information can be found in the [code refinery](https://coderefinery.github.io/social-coding/software-citation/)
     - You can opt to [publish (versions of) your repository on Zenodo](https://coderefinery.github.io/github-without-command-line/doi/) to get a doi. This would be the FAIRest way to make your software citable.
     - Do you expect people to collaborate or contribute to the repository? Then it is recommended to create a `CONTRIBUTION` file.
 
 4. **Publication**:
     - Create a clean copy of the project on the iAMB GitHub page. 
-    - If you do not need the history of your project anymore, delete it on GitLab
+    - If you do not need the history of your project anymore, [delete it on GitLab](https://stackoverflow.com/questions/42355605/how-to-delete-a-gitlab-repository)
     - If you are not working on a confidential project and you do not mind people seeing your git history, you can also [migrate the GitLab repo to GitHub](https://gist.github.com/sxflynn/3ed8f78fe9c4a115ab14857854ab7f6d) without loosing anything.
 
-5. **After publication**: Keep on the maintenance!
+5. **After publication**: 
+    - **Keep on the maintenance!**
     - If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely.
+    - Are you often releasing new versions? Then you might want to consider adding a `CHANGELOG` file. The creation of such a file can be automated as described in [this blogpost from Free Code Camp](https://www.freecodecamp.org/news/a-beginners-guide-to-git-what-is-a-changelog-and-how-to-generate-it/).
