@@ -16,10 +16,3 @@ In this documentation, you can find all the information you need to build and an
    :maxdepth: 1
    :caption: API reference
 
-   api_reference/CatalyticEvent.md
-   api_reference/Constraints.md
-   api_reference/Enzyme.md
-   api_reference/EnzymeSectors.md
-   api_reference/PAMValidator.md
-   api_reference/PAModel.md
-   api_reference/configuration.md
