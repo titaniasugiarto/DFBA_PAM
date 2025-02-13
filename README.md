@@ -11,6 +11,7 @@ This repository is structured to make it easier to track your work. You can crea
 
 Please check out what goes where:
 
+**Directories**
 - `Data`: Only data as you obtained it. Should never contain anything which is the result of your computations (so also not 'cleaned' data)
 - `Figures`: This is where you store the figures which are included in your manuscript AND the scripts to generate them.
 - `Models`: All the models used in your work.
@@ -19,8 +20,12 @@ Please check out what goes where:
 - `src`: In the `src` directory you can store all your software/reusable code.
 - `docs`: For the documentation. the API reference files can be stored in a subdirectory `api_reference`
 - `tests`: Here you can store your software tests
+- `.github`: This is were github CI action scripts are stored. Please delete if not necessary.
+
+**Files**
 - `.gitignore`: every file listed in the `.gitignore` file will be ignored by git. This is very confeniant for automatically generated files and confidential information
 - `requirements.txt`: A list of all the packages (including version!) which are required to redo the analyses.
+- `.readthedocs.yml`: An example for deploying documentation using readthedocs
 
 
 ## Step-by-step plan for using version control with Git
