@@ -12,11 +12,13 @@ This repository is structured to make it easier to track your work. You can crea
 Please check out what goes where:
 
 - `Data`: Only data as you obtained it. Should never contain anything which is the result of your computations (so also not 'cleaned' data)
+- `Figures`: This is where you store the figures which are included in your manuscript AND the scripts to generate them.
 - `Models`: All the models used in your work.
 - `Results`: Here you can store anything you generated. You can opt to separate several phases of the research (preprocessing, processing, analysis) in several subdirectories.
 - `Scripts`: This is where all your notebooks and scripts which you use for a SINGLE analysis. If you use it more often, it is better to store it in the `src` directory.
 - `src`: In the `src` directory you can store all your software/reusable code.
 - `docs`: For the documentation. the API reference files can be stored in a subdirectory `api_reference`
+- `tests`: Here you can store your software tests
 - `.gitignore`: every file listed in the `.gitignore` file will be ignored by git. This is very confeniant for automatically generated files and confidential information
 - `requirements.txt`: A list of all the packages (including version!) which are required to redo the analyses.
 
