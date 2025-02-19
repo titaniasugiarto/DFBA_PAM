@@ -4,7 +4,7 @@
 
 ## Getting started
 
-This template is meant as a starting point for creating new repositories for projects in the Industrial Systems Biology group at the institute of Applied Microbiology. This README file will highlight some of the core principles for sharing and creating software/data according to the [FAIR software principles](https://www.nature.com/articles/s41597-022-01710-x).
+This template is meant as a starting point for creating new repositories for projects in the Industrial Systems Biotechnology group at the institute of Applied Microbiology. This README file will highlight some of the core principles for sharing and creating software/data according to the [FAIR software principles](https://www.nature.com/articles/s41597-022-01710-x).
 
 ## A good repository structure
 This repository is structured to make it easier to track your work. You can create subdirectories as you please. Make sure you write your code such that it is runnable from the command line from the main directory. This will ensure you do not have any import conflicts.
