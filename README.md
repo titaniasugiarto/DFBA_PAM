@@ -67,7 +67,7 @@ The following guidelines will help you build your project such that it is easily
 
 4. **Publication**:
     - Create a clean copy of the project on the iAMB GitHub page. 
-    - If you do not need the history of your project anymore, [delete it on GitLab](https://stackoverflow.com/questions/42355605/how-to-delete-a-gitlab-repository)
+    - If you do not need the history of your project anymore,[archive it on GitLab](https://docs.gitlab.com/user/project/working_with_projects/#archive-a-project)
     - If you are not working on a confidential project and you do not mind people seeing your git history, you can also [migrate the GitLab repo to GitHub](https://gist.github.com/sxflynn/3ed8f78fe9c4a115ab14857854ab7f6d) without loosing anything.
 
 5. **After publication**: 
