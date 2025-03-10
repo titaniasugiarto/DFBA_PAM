@@ -4,9 +4,9 @@ from assimulo.solvers import RungeKutta34
 from assimulo.solvers import ExplicitEuler
 from assimulo.exception import TerminateSimulation
 from cobra import Model
-from .display_data import plot_data
-from .display_data import data_list_output
-from .utils import (position_exchange_reactions,
+from display_data import plot_data
+from display_data import data_list_output
+from utils import (position_exchange_reactions,
                     set_start_concentrations)
 
 
