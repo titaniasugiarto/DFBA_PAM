@@ -1,7 +1,7 @@
 import numpy as np
 from cobra import Model
-from utils import position_enzymes, set_start_concentrations_enzymes, position_exchange_reactions, set_start_concentrations_metabolites
-from display_data import plot_data, data_list_output
+from src.DynPAM.utils import position_enzymes, set_start_concentrations_enzymes, position_exchange_reactions, set_start_concentrations_metabolites
+from src.DynPAM.display_data import plot_data, data_list_output
 from assimulo.problem import Explicit_Problem
 from assimulo.solvers import ExplicitEuler
 from assimulo.exception import TerminateSimulation

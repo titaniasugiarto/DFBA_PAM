@@ -1,9 +1,9 @@
-from dynamicPAM import DynamicPAM
-from utils import load_model, set_objective, set_start_concentrations_metabolites, position_enzymes, set_start_concentrations_enzymes, position_exchange_reactions, set_start_concentrations
-from display_data import data_list_output, plot_data
+from src.DynPAM.dynamicPAM import DynamicPAM
+from src.DynPAM.utils import load_model, set_objective, set_start_concentrations_metabolites, position_enzymes, set_start_concentrations_enzymes, position_exchange_reactions, set_start_concentrations
+from src.DynPAM.display_data import data_list_output, plot_data
 import numpy as np
 
-model_path = r'C:\Users\User\Downloads\iML1515_core_PAM (1).pkl' 
+model_path = r'Models/iML1515_core_PAM.pkl'
 model = load_model(model_path)
 
 objective_function_id = 'BIOMASS_Ecoli_core_w_GAM'
