@@ -21,8 +21,8 @@ class DynamicPAM:
         self.dict_position_enzymes = position_enzymes(model)
         
         # start concentrations for ex_met are set in an np Array y0
-        self.start_concentrations_ex_met = set_start_concentrations_metabolites(start_concentrations, self.pos_ex_reac)
-        self.start_concentrations_enz = set_start_concentrations_enzymes(self.dict_position_enzymes)
+        self.start_concentrations_ex_met = set_start_concentrations_metabolites(start_concentrations['metabolites'], self.pos_ex_reac)
+        self.start_concentrations_enz = set_start_concentrations_enzymes(start_concentrations['enzymes'], self.dict_position_enzymes)
 
         self.e = np.zeros(len(self.dict_position_enzymes)) # Vektor für enzyme konz.
 
@@ -77,8 +77,8 @@ class DynamicPAM:
             l_bound = enzyme_concentration + self.max_degradation
             u_bound = enzyme_concentration + self.max_production
 
-            self.model.enzyme_variables.get_by_id(enzyme_id).lower_bound = l_bound
-            self.model.enzyme_variables.get_by_id(enzyme_id).upper_bound = u_bound
+            self.model.reactions.get_by_id(enzyme_id).lower_bound = l_bound
+            self.model.reactions.get_by_id(enzyme_id).upper_bound = u_bound
 
         biomass = y[self.pos_ex_reac[self.objective_function_id]]
 
@@ -88,7 +88,7 @@ class DynamicPAM:
         #         y[i] = 0
         y = np.maximum(y, 0)
 
-        self.set_ex_met_bounds(self, y)
+        self.set_ex_met_bounds(y)
 
         # Optimize the model
         solution = self.model.optimize()
@@ -130,7 +130,7 @@ class DynamicPAM:
 
         if plot:
             
-            plot_data(t, e, self.dict_position_enzymes, exclude_ids=exclude_ids, plot_ids=plot_ids, only_positive=only_positive, plot_biomass_separately=plot_biomass_separately)
-            plot_data(t, y, self.pos_ex_reac, exclude_ids=exclude_ids, plot_ids=plot_ids, only_positive=only_positive, plot_biomass_separately=plot_biomass_separately)
+            plot_data(t, e, self.dict_position_enzymes, exclude_ids=exclude_ids, plot_ids=plot_ids, only_positive=only_positive)
+            plot_data(t, y, self.pos_ex_reac, exclude_ids=exclude_ids, plot_ids=plot_ids, only_positive=only_positive)
 
         return t, concentrations
