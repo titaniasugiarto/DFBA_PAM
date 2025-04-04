@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from tabulate import tabulate
+import seaborn as sns
+import pandas as pd
 
 
 def data_list_output(t, y, pos_ex_met):
@@ -48,20 +50,37 @@ def plot_data(t, y, pos_ex_met, plot_ids=None, exclude_ids=None, only_positive=F
     if plot_biomass_separately:
         biomass_id = list(pos_ex_met.keys())[-1]  # Assuming the last one is the biomass
 
+    fig, ax1 = plt.subplots()
+    ax2 = ax1.twinx() #create a second plot for high value metabolites
+
+    # Use different colormaps for 'normal' and 'high concentration' metabolites
+    normal_colors = sns.color_palette('Set1')
+    high_value_colors = sns.color_palette('Set2')
+    normal_idx, high_value_idx = 0,0
+
+    # for plotting experimental batch data
+    exp_data = pd.read_excel('Data/Batch_fermentation_data.xlsx', 'Tabelle1')
+
     for metabolite, index in pos_ex_met.items():
         if only_positive and not np.any(y[:, index] > 0.1):
             continue
-        if np.any((y[:, index] < -0.1) | (y[:, index] > 0.1)):
-            plt.plot(t, y[:, index], label=metabolite)
+        if metabolite == "BIOMASS_Ecoli_core_w_GAM": # plot the data on different y-axis with different scaling because of their high value
+            ax2.plot(t, y[:, index], label=metabolite, color= high_value_colors[high_value_idx])
+            ax2.scatter(exp_data['t [1/h]'], exp_data[metabolite], color= high_value_colors[high_value_idx])
+            high_value_idx += 1
 
-    plt.xlabel('Time')
-    plt.ylabel('Concentration')
+        elif np.any((y[:, index] < -0.1) | (y[:, index] > 0.1)):
+            ax1.plot(t, y[:, index], label=metabolite, color=normal_colors[normal_idx])
+            ax1.scatter(exp_data['t [1/h]'], exp_data[metabolite], color=normal_colors[normal_idx])
+            normal_idx += 1
+
+    ax2.set_ylabel('Concentration')
+    ax2.legend(loc='upper right', bbox_to_anchor=(1.12, 1))
+    ax1.set_xlabel('Time')
+    ax1.set_ylabel('Concentration')
+    ax1.legend(loc='upper left', bbox_to_anchor=(-0.17, 1))
+
     plt.title('Dynamic FBA: Metabolite Concentrations over Time')
-
-    if plt.gca().get_legend_handles_labels()[1]:
-        plt.legend(loc='upper left', bbox_to_anchor=(1, 1))
-    else:
-        print("Keine Labels für die Legende gefunden.")
 
     plt.grid()
     plt.show()

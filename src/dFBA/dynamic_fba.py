@@ -4,9 +4,9 @@ from assimulo.solvers import RungeKutta34
 from assimulo.solvers import ExplicitEuler
 from assimulo.exception import TerminateSimulation
 from cobra import Model
-from display_data import plot_data
-from display_data import data_list_output
-from utils import (position_exchange_reactions,
+from src.dFBA.display_data import plot_data
+from src.dFBA.display_data import data_list_output
+from src.dFBA.utils import (position_exchange_reactions,
                     set_start_concentrations)
 
 
@@ -26,30 +26,32 @@ class DynamicFBA:
         d_metabolite_dt = np.zeros(len(y))
         biomass = y[self.pos_ex_reac[self.objective_function_id]]
 
+        for i in range(len(y)):
+            if y[i] < 0:
+                y[i] = 0
+
         # Berechnung der Änderungsraten und Anpassung der Flussgrenzen
         for reaction_id, parameter in self.michaelis_menten_parameters.items():
             # get metabolte concetration
             position = self.pos_ex_reac[reaction_id]
             metabolite_concentrations = y[position]
 
-            for i in range(len(y)):
-                if y[i] < 0:
-                    y[i] = 0
-
             # calculate metabolite flux
             metabolite_reaction = ((parameter['Vmax'] * metabolite_concentrations) /
                                    (parameter['KM'] + metabolite_concentrations))
 
-            if metabolite_reaction < 0:
-                metabolite_reaction = 0
+            # if metabolite_reaction < 0:
+            #     metabolite_reaction = 0
 
             # self.model.reactions.get_by_id(reaction_id).upper_bound = 100
             self.model.reactions.get_by_id(reaction_id).lower_bound = -metabolite_reaction
 
+
+
         solution = self.model.optimize()
 
-        if solution.status != 'optimal':
-           raise RuntimeError(f"Optimization failed with status: {solution.status}")
+        # if solution.status != 'optimal':
+        #    raise RuntimeError(f"Optimization failed with status: {solution.status}")
 
         for reac_id, pos in self.pos_ex_reac.items():
             flux = solution.fluxes[reac_id]
@@ -58,7 +60,7 @@ class DynamicFBA:
         return d_metabolite_dt #mmol/h
 
     def simulate(self, t0: float, tf: float, start_concentrations: dict,
-                 data_list: bool = True, plot: bool = True, plot_ids=None, exclude_ids=None, only_positive=False, plot_biomass_separately=False):
+                 data_list: bool = False, plot: bool = True, plot_ids=None, exclude_ids=None, only_positive=False, plot_biomass_separately=False):
         
         # initialize problem and populate start concentration vector
         self.pos_ex_reac = position_exchange_reactions(self.model, self.objective_function_id)

@@ -2,6 +2,7 @@ from cobra.io import read_sbml_model
 import numpy as np
 import pickle
 import os
+import pandas as pd
 
 def load_model(path: str):  # Unterschiedliche reader einfügen
 
@@ -56,3 +57,33 @@ def set_start_concentrations(start_concentrations, pos_ex_reac):
 def rhs(rhs_definition):
     if rhs_definition == 1:
         print('hi')
+
+def create_parameter_table(start_concentrations:dict, michaelis_menten_parameters:dict)-> pd.DataFrame:
+    '''
+    Create a parameter table containing the initial metabolite concentrations, KM, and Vmax values
+
+
+    Args:
+        start_concentrations: {'metabolite_1': init_conc1,
+                               'metabolite_2': init_conc2}
+        michaelis_menten_parameters: {'metabolite_1': {KM1: , Vmax1: },
+                                      'metabolite_2': {KM1: , Vmax1: }}
+
+    Return:
+        pandas Dataframe with the parameters
+
+    '''
+    # Convert start_concentrations to a DataFrame
+    parameter_table = pd.DataFrame.from_dict(start_concentrations, orient='index', columns=['Concentration'])
+    parameter_table.reset_index(inplace=True)
+    parameter_table.rename(columns={'index': 'Metabolite'}, inplace=True)
+
+    # Convert michaelis_menten_parameters to a DataFrame
+    mm_df = pd.DataFrame.from_dict(michaelis_menten_parameters, orient='index')
+    mm_df.reset_index(inplace=True)
+    mm_df.rename(columns={'index': 'Metabolite'}, inplace=True)
+
+    # Merge both DataFrames on 'Metabolite'
+    full_parameter_table = pd.merge(parameter_table, mm_df, on='Metabolite', how='left')
+
+    return full_parameter_table
