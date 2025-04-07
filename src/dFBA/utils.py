@@ -3,6 +3,11 @@ import numpy as np
 import pickle
 import os
 import pandas as pd
+from datetime import datetime
+
+# Defining the type aliases
+TimeArray = np.ndarray
+ConcentrationArray = np.ndarray
 
 def load_model(path: str):  # Unterschiedliche reader einfügen
 
@@ -87,3 +92,54 @@ def create_parameter_table(start_concentrations:dict, michaelis_menten_parameter
     full_parameter_table = pd.merge(parameter_table, mm_df, on='Metabolite', how='left')
 
     return full_parameter_table
+
+
+
+def write_output_to_excel(model, t:TimeArray, y:ConcentrationArray, parameter_table:pd.DataFrame, file_name:str) -> None:
+    '''
+    Writes the output of a DynamicFBA simulation to an Excel file. The file contains three sheets:
+
+        - 'README': Contains metadata and unit information.
+        - 'Parameters': Stores the parameters used for the simulation.
+        - 'Output': Tabulates metabolite concentrations over time.
+
+    Args:
+        model: A DynamicFBA model instance used to run the simulation.
+        t: A time array representing the time points at which concentrations are measured.
+        y: A 2D array of metabolite concentrations corresponding to each time point in t.
+        parameter_table: A DataFrame containing the parameter values used in the simulation.
+
+    Returns:
+        None. The function saves an Excel file to the 'Results' directory.
+
+    '''
+    header = ['time']
+    metabolite_names = list(model.pos_ex_reac.keys())
+    header.extend(metabolite_names)
+
+    output = pd.DataFrame(columns=header)
+    output['time'] = t
+
+    for conc_t, i in zip(y, range(0, len(y))):
+        output.iloc[i, 1:] = conc_t
+
+    # Save output to an excel file and include README sheet
+    readme_text = {
+        "README": [
+            "This Excel file contains simulation results with the following parameters:",
+            "Metabolite concentrations are in mmol/L, biomass in g/L.",
+            "KM values are in mmol/L, Vmax values in mmol/gDW/h.",
+            "See the 'Parameters' sheet for details."
+        ]
+    }
+
+    readme_df = pd.DataFrame(readme_text)
+
+    today_date = datetime.today().strftime('%Y-%m-%d')
+
+    with pd.ExcelWriter(f"Results/{file_name}_{today_date}.xlsx", engine="openpyxl") as writer:
+        readme_df.to_excel(writer, sheet_name="README", index=False)
+        parameter_table.to_excel(writer, sheet_name="Parameters", index=False)
+        output.to_excel(writer, sheet_name="output", index=False)
+
+    print("Excel file saved with README and Parameter Table!")
