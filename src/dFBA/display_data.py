@@ -64,12 +64,12 @@ def plot_data(t, y, pos_ex_met, plot_ids=None, exclude_ids=None, only_positive=F
     for metabolite, index in pos_ex_met.items():
         if only_positive and not np.any(y[:, index] > 0.1):
             continue
-        if metabolite == "BIOMASS_Ecoli_core_w_GAM": # plot the data on different y-axis with different scaling because of their high value
+        if metabolite == "BIOMASS_Ec_iML1515_core_75p37M": # plot the data on different y-axis with different scaling because of their high value
             ax2.plot(t, y[:, index], label=metabolite, color= high_value_colors[high_value_idx])
             ax2.scatter(exp_data['t [1/h]'], exp_data[metabolite], color= high_value_colors[high_value_idx])
             high_value_idx += 1
 
-        elif np.any((y[:, index] < -0.1) | (y[:, index] > 0.1)):
+        else:
             ax1.plot(t, y[:, index], label=metabolite, color=normal_colors[normal_idx])
             ax1.scatter(exp_data['t [1/h]'], exp_data[metabolite], color=normal_colors[normal_idx])
             normal_idx += 1
