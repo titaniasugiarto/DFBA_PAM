@@ -21,7 +21,7 @@ set_objective(model, biomass_reaction_core)
 print("Objective set.")
 
 start_concentrations = {'EX_glc__D_e': 92.0, #all concentrations in mmol/L
-                        'EX_ac_e': 2,
+                        'EX_ac_e': 0.1,
                         #'EX_etoh_e': 1.0,
                         #'EX_lac__D_e': 5.0,
                         biomass_reaction_core: 0.1}
@@ -50,7 +50,7 @@ t0 = 0.0  # Startzeit
 tf = 13  # Endzeit
 plot_ids = ['EX_glc__D_e', 'EX_ac_e', biomass_reaction_core]
 t, y = dynamic_fba.simulate(t0, tf, start_concentrations,
-                            data_list=False, plot=True, plot_ids=plot_ids, save_output=True)
+                            data_list=False, plot=True, plot_ids=plot_ids, save_output=False)
 
 
 

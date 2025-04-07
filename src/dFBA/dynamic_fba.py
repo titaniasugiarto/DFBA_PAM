@@ -1,8 +1,7 @@
 import numpy as np
 import pandas as pd
 from assimulo.problem import Explicit_Problem
-from assimulo.solvers import RungeKutta34
-from assimulo.solvers import ExplicitEuler
+from assimulo.solvers import ExplicitEuler, CVode
 from assimulo.exception import TerminateSimulation
 from cobra import Model
 from src.dFBA.display_data import plot_data
@@ -40,11 +39,11 @@ class DynamicFBA:
             metabolite_concentrations = y[position]
 
             #calculate metabolite flux
-            if reaction_id == 'EX_ac_e':
-                metabolite_reaction = - (1/(np.log(13/2))) * np.log(metabolite_concentrations/13)
-            else:
-                metabolite_reaction = ((parameter['Vmax'] * metabolite_concentrations) /
-                           (parameter['KM'] + metabolite_concentrations))
+            # if reaction_id == 'EX_ac_e':
+            #     metabolite_reaction = (1/(np.log(13/2))) * np.log(metabolite_concentrations/13)
+            # else:
+            metabolite_reaction = ((parameter['Vmax'] * metabolite_concentrations) /
+                       (parameter['KM'] + metabolite_concentrations))
 
             # if metabolite_reaction < 0:
             #     metabolite_reaction = 0
@@ -74,7 +73,7 @@ class DynamicFBA:
 
         problem = Explicit_Problem(self.rhs_definition, y0, t0)
         # solver = RungeKutta34(problem)
-        solver = ExplicitEuler(problem)
+        solver = CVode(problem)
         # Sets the initial step, default is 0.01
         # solver.inith = 0.1
 
