@@ -43,7 +43,7 @@ class DynamicFBA:
             #     metabolite_reaction = (1/(np.log(13/2))) * np.log(metabolite_concentrations/13)
             # else:
             metabolite_reaction = ((parameter['Vmax'] * metabolite_concentrations) /
-                       (parameter['KM'] + metabolite_concentrations))
+                    (parameter['KM'] + metabolite_concentrations))
 
             # if metabolite_reaction < 0:
             #     metabolite_reaction = 0
@@ -73,7 +73,7 @@ class DynamicFBA:
 
         problem = Explicit_Problem(self.rhs_definition, y0, t0)
         # solver = RungeKutta34(problem)
-        solver = CVode(problem)
+        solver = ExplicitEuler(problem)
         # Sets the initial step, default is 0.01
         # solver.inith = 0.1
 

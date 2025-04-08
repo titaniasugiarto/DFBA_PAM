@@ -8,9 +8,9 @@ from src.dFBA.utils import (load_model,
                    create_parameter_table)
 from PAModelpy.utils.pam_generation import set_up_pam
 
-pam_path = 'Data/proteinAllocationModel_mciML1515_EnzymaticData_multi.xlsx'
-model = set_up_pam(pam_path, sensitivity=False)
-# model = load_model('Models/iML1515.xml')
+# pam_path = 'Data/proteinAllocationModel_mciML1515_EnzymaticData_multi.xlsx'
+# model = set_up_pam(pam_path, sensitivity=False)
+model = load_model('Models/iML1515.xml')
 
 print("Model loadad.")
 
@@ -27,7 +27,7 @@ start_concentrations = {'EX_glc__D_e': 92.0, #all concentrations in mmol/L
                         biomass_reaction_core: 0.1}
 print("Concentrations given.")
 
-michaelis_menten_parameters = {'EX_glc__D_e': {'KM': 0.0027, 'Vmax': 10.5}, # K(M) [mmol*L-1], V(max) [mmol * (L * h)-1]
+michaelis_menten_parameters = {'EX_glc__D_e': {'KM': 0.0027, 'Vmax': 8.0}, # K(M) [mmol*L-1], V(max) [mmol * (gDW * h)-1]
                                'EX_ac_e': {'KM': 0.02, 'Vmax': 8.0},
                                #'EX_etoh_e': {'KM': 0.017, 'Vmax': 9.0},
                                #'EX_lac__D_e': {'KM': 0.015, 'Vmax': 10.0}
